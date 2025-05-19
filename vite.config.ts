@@ -13,14 +13,24 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react(),
-    vue(), // Ensure Vue plugin is active
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.includes('-')
+        }
+      }
+    }),
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "vue": "vue/dist/vue.esm-bundler.js", // Ensure Vue is properly resolved
+      "vue": path.resolve(__dirname, "node_modules/vue/dist/vue.esm-bundler.js"),
     },
+    dedupe: ['vue']
   },
+  optimizeDeps: {
+    include: ['vue']
+  }
 }));

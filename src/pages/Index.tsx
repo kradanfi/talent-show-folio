@@ -9,15 +9,17 @@ const SkillsSection = () => <div id="vue-skills"></div>;
 const ContactForm = () => <div id="vue-contact"></div>;
 const Footer = () => <div id="vue-footer"></div>;
 
+// Pre-import Vue to avoid dynamic import issues
+import * as Vue from 'vue';
+
 const Index = () => {
   useEffect(() => {
-    // We need to dynamically import Vue and our components
+    // We need to load and mount our Vue components
     const loadVueComponents = async () => {
       try {
-        // Using dynamic imports with type assertions to help TypeScript
-        const { createApp } = await import('vue') as any;
+        const { createApp } = Vue;
         
-        // Import all Vue components with type assertions
+        // Import Vue components
         const NavbarComponent = (await import('../components/Navbar.vue')).default;
         const HeroComponent = (await import('../components/Hero.vue')).default;
         const ProjectsSectionComponent = (await import('../components/ProjectsSection.vue')).default;
