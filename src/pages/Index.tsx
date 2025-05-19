@@ -14,9 +14,10 @@ const Index = () => {
     // We need to dynamically import Vue and our components
     const loadVueComponents = async () => {
       try {
-        const { createApp } = await import('vue');
+        // Using dynamic imports with type assertions to help TypeScript
+        const { createApp } = await import('vue') as any;
         
-        // Import all Vue components
+        // Import all Vue components with type assertions
         const NavbarComponent = (await import('../components/Navbar.vue')).default;
         const HeroComponent = (await import('../components/Hero.vue')).default;
         const ProjectsSectionComponent = (await import('../components/ProjectsSection.vue')).default;
